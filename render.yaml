@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: whatsapp-qr-antispam-bot
+    runtime: docker
+    plan: starter
+    healthCheckPath: /health
+    disk:
+      name: whatsapp-session-data
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: AUTH_PATH
+        value: /var/data/whatsapp-auth
+      - key: DASHBOARD_PASSWORD
+        sync: false
+      - key: SESSION_SECRET
+        sync: false
+      - key: MIN_DELAY_SECONDS
+        value: "120"
+      - key: HOURLY_LIMIT
+        value: "10"
+      - key: DAILY_LIMIT
+        value: "30"
